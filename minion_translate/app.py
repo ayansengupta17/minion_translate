@@ -167,7 +167,7 @@ with tab1:
     )
 
     translate_button = st.button(
-        f"{minion_names[np.random.randint(5)]} Says",
+        f"Minionize",
         key="minionize_button",
         help=None,
         on_click=on_input_text_eng_change,
@@ -175,7 +175,7 @@ with tab1:
     )
 
     output_text_min = st.text_area(
-        f" Stuart Says",
+        f"{minion_names[np.random.randint(5)]} Says",
         value="",
         height=None,
         max_chars=200,
@@ -209,11 +209,11 @@ with tab2:
     )
 
     translate_button = st.button(
-        "Gru Says", key="humanize_button", help=None, on_click=on_input_text_min_change, args=None
+        "Humanize", key="humanize_button", help=None, on_click=on_input_text_min_change, args=None
     )
 
     output_text_eng = st.text_area(
-        f" Stuart Says",
+        f" Gru Says",
         value="",
         height=None,
         max_chars=200,
