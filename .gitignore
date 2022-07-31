@@ -1,4 +1,4 @@
-secrets.toml
+.streamlit/secrets.toml
 .eggs
 .DS_Store
 __pycache__
