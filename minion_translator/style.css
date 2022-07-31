@@ -1,0 +1,23 @@
+.stTextArea>div>div>div>textarea {
+    color: black;
+}
+
+.stTextArea>div>div>div>textarea::placeholder {
+    color: black;
+}
+
+.stTextArea>div>div>div>span {
+    color: black;
+}
+
+header {
+    visibility: hidden;
+}
+
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}

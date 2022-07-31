@@ -1,0 +1,7 @@
+./streamlit/secrets.toml
+.eggs
+.DS_Store
+__pycache__
+.ipynb_checkpoints
+*.egg-info
+*.txt
