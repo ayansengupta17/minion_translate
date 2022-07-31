@@ -104,9 +104,10 @@ def translate(text: str, oracle: Dict, use_nltk=False):
 
 if "minionize_count" not in st.session_state:
     st.session_state.minionize_count = count_eng2min_doc.get().get("num")
-
+    st.session_state.min_count_delta = 0
 if "humanize_count" not in st.session_state:
     st.session_state.humanize_count = count_min2eng_doc.get().get("num")
+    st.session_state.hum_count_delta = 0
 
 
 def on_input_text_eng_change():
@@ -121,6 +122,7 @@ def on_input_text_eng_change():
     data = {"eng": eng_text, "min": translated, "created": datetime.datetime.now()}
     doc.set(data)
     st.session_state.minionize_count += 1
+    st.session_state.min_count_delta += 1
     count_eng2min_doc.set({"num": st.session_state.minionize_count, "updated": datetime.datetime.now()})
 
 
@@ -142,6 +144,7 @@ def on_input_text_min_change():
     data = {"eng": translated, "min": input_text_stuart, "created": datetime.datetime.now()}
     doc.set(data)
     st.session_state.humanize_count += 1
+    st.session_state.hum_count_delta += 1
     count_eng2min_doc.set({"num": st.session_state.humanize_count, "updated": datetime.datetime.now()})
 
 
@@ -184,7 +187,7 @@ with tab1:
         on_change=None,
     )
 
-    st.metric(label="Minionize Usage", value=st.session_state.minionize_count, delta=3)
+    st.metric(label="Minionize Usage", value=st.session_state.minionize_count, delta=st.session_state.min_count_delta)
 
 
 with tab2:
@@ -222,7 +225,7 @@ with tab2:
         on_change=None,
     )
 
-    st.metric(label="Humanize Usage", value=st.session_state.humanize_count, delta=2)
+    st.metric(label="Humanize Usage", value=st.session_state.humanize_count, delta=st.session_state.hum_count_delta)
 
 components.html(
     """
