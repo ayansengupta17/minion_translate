@@ -1,4 +1,5 @@
-.streamlit/secrets.toml
+.streamlit/*
+!.streamlit/config.toml
 .eggs
 .DS_Store
 __pycache__
