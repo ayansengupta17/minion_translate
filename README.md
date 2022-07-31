@@ -1,2 +1,2 @@
-# minion_translate
+# Minion Translator
 Minion translator
