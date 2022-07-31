@@ -120,7 +120,7 @@ def on_input_text_eng_change():
     doc = eng2min_collection.document(doc_name)
     data = {"eng": eng_text, "min": translated, "created": datetime.datetime.now()}
     doc.set(data)
-    st.session_state.minionize_count = st.session_state.minionize_count + 1
+    st.session_state.minionize_count += 1
     count_eng2min_doc.set({"num": st.session_state.minionize_count, "updated": datetime.datetime.now()})
 
 
@@ -141,7 +141,7 @@ def on_input_text_min_change():
     doc = min2eng_collection.document(doc_name)
     data = {"eng": translated, "min": input_text_stuart, "created": datetime.datetime.now()}
     doc.set(data)
-    st.session_state.humanize_count = st.session_state.humanize_count + 1
+    st.session_state.humanize_count += 1
     count_eng2min_doc.set({"num": st.session_state.humanize_count, "updated": datetime.datetime.now()})
 
 
