@@ -22,8 +22,8 @@ logging.basicConfig(filename="translate.log")
 css_path = Path(__file__).parent.resolve() / "style.css"
 minion_image_path = Path(__file__).parent.resolve() / "images" / "minions.png"
 gru_image_path = Path(__file__).parent.resolve() / "images" / "gru.png"
-min2eng_path = Path(__file__).parent.resolve() / "data" / "min2eng.pkl"
-eng2min_path = Path(__file__).parent.resolve() / "data" / "eng2min.pkl"
+min2eng_path = Path(__file__).parent.resolve() / "data" / "min2eng_lower.pkl"
+eng2min_path = Path(__file__).parent.resolve() / "data" / "eng2min_lower.pkl"
 nltk_path = Path(__file__).parent.resolve() / "data" / "nltk_data"
 firestor_key_path = Path(__file__).parent.resolve() / "firestore-key.json"
 nltk.data.path.append(str(nltk_path))
