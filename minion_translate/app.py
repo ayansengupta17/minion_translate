@@ -78,7 +78,7 @@ def generate_tweet_share(text):
     """ Generate twitter share button"""
     
     html_str = f"""<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" 
-        data-text="{text} - Speak like Stuart the Minion" 
+        data-text="'{text}' - Speak like Stuart the Minion" 
         data-url="https://www.minion.fun"
         data-show-count="false">
         data-size="Large" 
