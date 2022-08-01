@@ -1,20 +1,21 @@
-from fnmatch import translate
-import streamlit as st
-import numpy as np
-from typing import Dict
-import pickle
-from pathlib import Path
-from PIL import Image
-import nltk
-from nltk.tokenize import sent_tokenize, word_tokenize
-from load_css import local_css
-import logging
-from google.cloud import firestore
-import streamlit.components.v1 as components
-import hashlib
 import datetime
-import string
+import hashlib
+import logging
+import pickle
 import re
+import string
+from fnmatch import translate
+from pathlib import Path
+from typing import Dict
+
+import nltk
+import numpy as np
+import streamlit as st
+from google.cloud import firestore
+from nltk.tokenize import word_tokenize
+from PIL import Image
+from utils import auto_copy, generate_tweet_share, local_css, on_copy_button_click
+
 
 logging.basicConfig(filename="translate.log")
 
@@ -74,19 +75,6 @@ def load_data(min2eng_path: Path, eng2min_path: Path):
 eng2min, min2eng = load_data(min2eng_path=min2eng_path, eng2min_path=eng2min_path)
 minion_image, gru_image = load_images(minion_image_path=minion_image_path, gru_image_path=gru_image_path)
 
-def generate_tweet_share(text):
-    """ Generate twitter share button"""
-    
-    html_str = f"""<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" 
-        data-text="'{text}' - Speak like Stuart the Minion" 
-        data-url="https://www.minion.fun"
-        data-show-count="false">
-        data-size="Large" 
-        data-hashtags="streamlit,python"
-        Tweet
-        </a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>"""
-    components.html(html_str)
 
 def translate(text: str, oracle: Dict, use_nltk=False):
     """Function to translate english to minion language
@@ -121,6 +109,10 @@ if "minionize_count" not in st.session_state:
 if "humanize_count" not in st.session_state:
     st.session_state.humanize_count = count_min2eng_doc.get().get("num")
     st.session_state.hum_count_delta = 0
+if "output_text_min" not in st.session_state:
+    st.session_state.output_text_min = ""
+if "output_text_eng" not in st.session_state:
+    st.session_state.output_text_eng = ""
 
 
 def on_input_text_eng_change():
@@ -128,6 +120,7 @@ def on_input_text_eng_change():
     eng_text = st.session_state["input_text_eng"].lower().strip()
     logging.debug(f"input:eng2min:: {eng_text}")
     translated = translate(eng_text, eng2min)
+    auto_copy(translated)
     logging.debug(f"translated:eng2min:: {translated}")
     st.session_state["output_text_min"] = translated
     doc_name = hashlib.sha1(translated.encode("utf-8")).hexdigest()
@@ -149,6 +142,7 @@ def on_input_text_min_change():
         translated = eng2min_collection.document(hashed_input).get().get("eng")
     else:
         translated = translate(min_text, min2eng)
+    auto_copy(translated)
     logging.debug(f"input:min2eng:: {min_text}")
     logging.debug(f"translated:min2eng:: {translated}")
     st.session_state["output_text_eng"] = translated
@@ -198,13 +192,16 @@ with tab1:
         key="output_text_min",
         help="Minioniized text",
         on_change=None,
+        args=None,
     )
-
-    st.metric(label="Minionize Usage", value=st.session_state.minionize_count, delta=st.session_state.min_count_delta)
+    if translate_button:
+        st.caption("Output copied, please paste and share!", unsafe_allow_html=False)
     if "output_text_min" in st.session_state:
         generate_tweet_share(st.session_state.output_text_min)
     else:
         generate_tweet_share("Bello!")
+
+    st.metric(label="Minionize Stats", value=st.session_state.minionize_count, delta=st.session_state.min_count_delta)
 
 with tab2:
     st.image(
@@ -239,13 +236,13 @@ with tab2:
         key="output_text_eng",
         help="English text",
         on_change=None,
+        args=None,
     )
-
-    st.metric(label="Humanize Usage", value=st.session_state.humanize_count, delta=st.session_state.hum_count_delta)
-    
+    if translate_button:
+        st.caption("Output copied, please paste and share!", unsafe_allow_html=False)
     if "input_text_min" in st.session_state:
         generate_tweet_share(st.session_state.input_text_min)
     else:
         generate_tweet_share("Bello!")
-        
 
+    st.metric(label="Humanize Stats", value=st.session_state.humanize_count, delta=st.session_state.hum_count_delta)
