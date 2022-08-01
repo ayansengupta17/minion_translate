@@ -1,4 +1,4 @@
-.stTextArea>div>div>div>textarea {
+/*.stTextArea>div>div>div>textarea {
     color: black;
 }
 
@@ -21,3 +21,12 @@ header {
 footer {
     visibility: hidden;
 }
+
+footer:after {
+    content: "";
+    visibility: visible;
+    display: block;
+    position: relative;
+    padding: 5px;
+    top: 2px;
+}*/
