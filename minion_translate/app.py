@@ -74,6 +74,19 @@ def load_data(min2eng_path: Path, eng2min_path: Path):
 eng2min, min2eng = load_data(min2eng_path=min2eng_path, eng2min_path=eng2min_path)
 minion_image, gru_image = load_images(minion_image_path=minion_image_path, gru_image_path=gru_image_path)
 
+def generate_tweet_share(text):
+    """ Generate twitter share button"""
+    
+    html_str = f"""<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" 
+        data-text="{text} - Speak like Stuart the Minion" 
+        data-url="https://www.minion.fun"
+        data-show-count="false">
+        data-size="Large" 
+        data-hashtags="streamlit,python"
+        Tweet
+        </a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>"""
+    components.html(html_str)
 
 def translate(text: str, oracle: Dict, use_nltk=False):
     """Function to translate english to minion language
@@ -188,7 +201,10 @@ with tab1:
     )
 
     st.metric(label="Minionize Usage", value=st.session_state.minionize_count, delta=st.session_state.min_count_delta)
-
+    if "output_text_min" in st.session_state:
+        generate_tweet_share(st.session_state.output_text_min)
+    else:
+        generate_tweet_share(" ")
 
 with tab2:
     st.image(
@@ -226,17 +242,10 @@ with tab2:
     )
 
     st.metric(label="Humanize Usage", value=st.session_state.humanize_count, delta=st.session_state.hum_count_delta)
+    
+    if "input_text_min" in st.session_state:
+        generate_tweet_share(st.session_state.input_text_min)
+    else:
+        generate_tweet_share(" ")
+        
 
-components.html(
-    """
-        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" 
-        data-text="Speak like Stuart the Minion" 
-        data-url="https://streamlit.io"
-        data-show-count="false">
-        data-size="Large" 
-        data-hashtags="streamlit,python"
-        Tweet
-        </a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    """
-)
