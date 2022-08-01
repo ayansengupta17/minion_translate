@@ -204,7 +204,7 @@ with tab1:
     if "output_text_min" in st.session_state:
         generate_tweet_share(st.session_state.output_text_min)
     else:
-        generate_tweet_share(" ")
+        generate_tweet_share("Bello!")
 
 with tab2:
     st.image(
@@ -246,6 +246,6 @@ with tab2:
     if "input_text_min" in st.session_state:
         generate_tweet_share(st.session_state.input_text_min)
     else:
-        generate_tweet_share(" ")
+        generate_tweet_share("Bello!")
         
 
