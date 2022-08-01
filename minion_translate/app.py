@@ -145,7 +145,7 @@ def on_input_text_min_change():
     doc.set(data)
     st.session_state.humanize_count += 1
     st.session_state.hum_count_delta += 1
-    count_eng2min_doc.set({"num": st.session_state.humanize_count, "updated": datetime.datetime.now()})
+    count_min2eng_doc.set({"num": st.session_state.humanize_count, "updated": datetime.datetime.now()})
 
 
 with tab1:
