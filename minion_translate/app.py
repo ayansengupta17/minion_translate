@@ -166,7 +166,7 @@ with tab1:
         max_chars=200,
         key="input_text_eng",
         help="English text to be translated",
-        on_change=on_input_text_eng_change,
+        on_change=None,
     )
 
     translate_button = st.button(
