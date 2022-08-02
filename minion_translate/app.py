@@ -14,7 +14,7 @@ import streamlit as st
 from google.cloud import firestore
 from nltk.tokenize import word_tokenize
 from PIL import Image
-from utils import auto_copy, generate_tweet_share, local_css, on_copy_button_click
+from utils import auto_copy, generate_tweet_share, local_css
 
 
 logging.basicConfig(filename="translate.log")
@@ -120,7 +120,7 @@ def on_input_text_eng_change():
     eng_text = st.session_state["input_text_eng"].lower().strip()
     logging.debug(f"input:eng2min:: {eng_text}")
     translated = translate(eng_text, eng2min)
-    auto_copy(translated)
+    # auto_copy(translated)
     logging.debug(f"translated:eng2min:: {translated}")
     st.session_state["output_text_min"] = translated
     doc_name = hashlib.sha1(translated.encode("utf-8")).hexdigest()
@@ -142,7 +142,7 @@ def on_input_text_min_change():
         translated = eng2min_collection.document(hashed_input).get().get("eng")
     else:
         translated = translate(min_text, min2eng)
-    auto_copy(translated)
+    # auto_copy(translated)
     logging.debug(f"input:min2eng:: {min_text}")
     logging.debug(f"translated:min2eng:: {translated}")
     st.session_state["output_text_eng"] = translated
@@ -194,8 +194,9 @@ with tab1:
         on_change=None,
         args=None,
     )
-    if translate_button:
-        st.caption("Output copied, please paste and share!", unsafe_allow_html=False)
+
+    # if translate_button:
+    #   st.caption("Output copied, please paste and share!", unsafe_allow_html=False)
     if "output_text_min" in st.session_state:
         generate_tweet_share(st.session_state.output_text_min)
     else:
@@ -238,8 +239,8 @@ with tab2:
         on_change=None,
         args=None,
     )
-    if translate_button:
-        st.caption("Output copied, please paste and share!", unsafe_allow_html=False)
+    # if translate_button:
+    #   st.caption("Output copied, please paste and share!", unsafe_allow_html=False)
     if "input_text_min" in st.session_state:
         generate_tweet_share(st.session_state.input_text_min)
     else:
