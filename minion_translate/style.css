@@ -1,4 +1,4 @@
-/*.stTextArea>div>div>div>textarea {
+.stTextArea>div>div>div>textarea {
     color: black;
 }
 
@@ -22,7 +22,7 @@ footer {
     visibility: hidden;
 }
 
-footer:after {
+/*footer:after {
     content: "";
     visibility: visible;
     display: block;
