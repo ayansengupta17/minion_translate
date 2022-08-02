@@ -1,4 +1,5 @@
 # Minion Translator
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://www.minions.fun)
 
 This is small rule-based language translator which English to Minionese and Minionese to English.
 
