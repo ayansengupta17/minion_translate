@@ -6,7 +6,7 @@ import re
 import string
 from fnmatch import translate
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Tuple
 
 import nltk
 import numpy as np
@@ -54,7 +54,7 @@ def load_images(gru_image_path, minion_image_path):
 
 
 @st.cache(persist=True)
-def load_data(min2eng_path: Path, eng2min_path: Path):
+def load_data(min2eng_path: Path, eng2min_path: Path) -> Tuple[Dict, Dict]:
     """_summary_
 
     Args:
@@ -76,7 +76,7 @@ eng2min, min2eng = load_data(min2eng_path=min2eng_path, eng2min_path=eng2min_pat
 minion_image, gru_image = load_images(minion_image_path=minion_image_path, gru_image_path=gru_image_path)
 
 
-def translate(text: str, oracle: Dict, use_nltk=False):
+def translate(text: str, oracle: Dict, use_nltk=False) -> str:
     """Function to translate english to minion language
 
     Args:
@@ -115,7 +115,7 @@ if "output_text_eng" not in st.session_state:
     st.session_state.output_text_eng = ""
 
 
-def on_input_text_eng_change():
+def on_input_text_eng_change() -> None:
     translated = ""
     eng_text = st.session_state["input_text_eng"].lower().strip()
     logging.debug(f"input:eng2min:: {eng_text}")
@@ -132,7 +132,7 @@ def on_input_text_eng_change():
     count_eng2min_doc.set({"num": st.session_state.minionize_count, "updated": datetime.datetime.now()})
 
 
-def on_input_text_min_change():
+def on_input_text_min_change() -> None:
     """callback function for translating minion language to english"""
 
     translated = ""
