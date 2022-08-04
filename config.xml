@@ -1,5 +1,6 @@
-<access origin="*" />
-
-<allow-navigation href="*" />
-
-<allow-intent href="*" />
+ <access origin="*"/>
+  <access origin="*.github.com" />
+  <access origin="*.streamlit" />
+  <access origin="*streamlit.*" />
+  <allow-navigation href="*" />
+  <allow-intent href="*" />
