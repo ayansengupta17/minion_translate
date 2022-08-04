@@ -1,6 +1,6 @@
  <access origin="*"/>
   <access origin="*.github.com" />
-  <access origin="*.streamlit" />
-  <access origin="*streamlit.*" />
+  <access origin="*.streamlit.com" />
+  <access origin="*.streamlitapp.com" />
   <allow-navigation href="*" />
   <allow-intent href="*" />
