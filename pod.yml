@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: minion-translate
+  labels:
+    project: minions-fun
+spec:
+  containers:
+    - name: bob-the-minion
+      image: ayansengupta17/miniontranslator:0.0.2
+      ports:
+        - containerPort: 8501

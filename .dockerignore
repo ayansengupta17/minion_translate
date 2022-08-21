@@ -1,0 +1,12 @@
+**/*.pyc
+**/*.pyo
+**/*.mo
+#.streamlit/*
+#!.streamlit/config.toml
+.gitignore
+.git/
+**/__pycache__/
+Dockerfile
+db.sqlite3
+**/*.md
+config.yaml
